@@ -38,7 +38,7 @@ body {
   );
 }
 
-.container:before {
+.container:after {
   content: "";
   background: linear-gradient(
     rgba(0, 0, 0, 0.55) 0%,
@@ -264,4 +264,16 @@ body {
 
 .loading-icon {
   animation: rotate 1s linear infinite;
+}
+
+/* =============== */
+/* HOME */
+/* =============== */
+
+.home {
+  margin: 0 auto;
+  max-width: 960px;
+  padding: 40px;
+  position: relative;
+  z-index: 10;
 }

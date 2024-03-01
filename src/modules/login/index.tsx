@@ -1,19 +1,12 @@
 import { IconEyeClosed, IconEyeOpened } from "../../components/Icons";
+import { Link, useNavigate } from "react-router-dom";
 
 import { Alert } from "../../components/Alert";
+import { AxiosError } from "axios";
 import { Input } from "./components/input";
-import { Link } from "react-router-dom";
 import { Submit } from "./components/submit/submit";
+import { apiPostSignIn } from "../../clients/api";
 import { useState } from "react";
-import { wait } from "../../utils";
-
-const fakeApiSingIn = async (email: string, password: string) => {
-  await wait(1000);
-  if (email === "expalmer@gmail.com" && password === "1234") {
-    return { token: "XYZ" };
-  }
-  throw new Error("Invalid credentials");
-};
 
 export const Login = () => {
   const [email, setEmail] = useState("");
@@ -25,6 +18,8 @@ export const Login = () => {
 
   const isEmailValid = email.includes("@") && email.includes(".");
   const isPasswordValid = password.length > 3;
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -39,11 +34,13 @@ export const Login = () => {
 
     try {
       setIsLoading(true);
-      const { token } = await fakeApiSingIn(email, password);
-      console.log(token);
+      const { data } = await apiPostSignIn(email, password);
+      localStorage.setItem("token", data.token);
       setError("");
-    } catch (error) {
-      setError((error as Error).message);
+      navigate("/profile");
+    } catch (err) {
+      const error = err as AxiosError<{ message: string }>;
+      setError(error.response?.data?.message || "Something went wrong");
     }
 
     setIsLoading(false);
@@ -78,7 +75,6 @@ export const Login = () => {
               error={isSubmitted && !isEmailValid ? "E-mail inválido" : ""}
             />
 
-            {/* TODO: tente criar um componente para o password usando ou alterando o de e-mail */}
             <div className="form-group">
               <label htmlFor="">Password</label>
               <div className="input-with-icon">
