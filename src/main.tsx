@@ -3,6 +3,7 @@ import "./styles/main.css";
 
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
+import { Backstage } from "./modules/backstage";
 import { Home } from "./modules/home";
 import { Login } from "./modules/login";
 import { Profile } from "./modules/profile";
@@ -28,6 +29,14 @@ const router = createBrowserRouter([
     element: (
       <ProtectedRoute role="user">
         <Profile />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/backstage",
+    element: (
+      <ProtectedRoute role="admin">
+        <Backstage />
       </ProtectedRoute>
     ),
   },

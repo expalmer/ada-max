@@ -4,3 +4,9 @@ export type User = {
   email: string;
   role: string;
 };
+
+export type Avatar = {
+  id: number;
+  name: string;
+  image: string;
+};
