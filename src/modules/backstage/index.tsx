@@ -5,9 +5,8 @@ export const Backstage = () => {
 
   return (
     <div className="container">
-      <div className="home">
+      <div className="section">
         <h1 className="title">BACKSTAGE</h1>
-
         <button className="btn btn--white" onClick={() => logout()}>
           Logout{" "}
         </button>
