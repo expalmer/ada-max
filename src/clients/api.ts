@@ -1,4 +1,5 @@
-import { Avatar } from "../types";
+import { AvatarItem, NewProfileType, ProfileType } from "../types";
+
 import axios from "axios";
 
 export const api = axios.create({
@@ -21,5 +22,13 @@ export const apiPostSignIn = (email: string, password: string) => {
 };
 
 export const getAvatars = () => {
-  return api.get<Avatar[]>("/api/avatar");
+  return api.get<AvatarItem[]>("/api/avatar");
+};
+
+export const getProfiles = () => {
+  return api.get<ProfileType[]>("/api/profile");
+};
+
+export const postProfile = (body: NewProfileType) => {
+  return api.post<ProfileType[]>("/api/profile", body);
 };

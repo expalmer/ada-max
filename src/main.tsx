@@ -13,6 +13,7 @@ import { Profile } from "./modules/profile/root";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { ThemeProvider } from "./examples/example-context/ThemeContext";
 
 const router = createBrowserRouter([
   {
@@ -32,14 +33,6 @@ const router = createBrowserRouter([
     element: (
       <ProtectedRoute role="user">
         <Profile />
-      </ProtectedRoute>
-    ),
-  },
-  {
-    path: "/avatar-picker",
-    element: (
-      <ProtectedRoute role="user">
-        <AvatarPicker />
       </ProtectedRoute>
     ),
   },
@@ -71,6 +64,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <ThemeProvider>
+      <RouterProvider router={router} />
+    </ThemeProvider>
   </React.StrictMode>
 );

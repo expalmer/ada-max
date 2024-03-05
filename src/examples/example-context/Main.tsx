@@ -8,7 +8,7 @@ export const Main = () => {
   return (
     <main className="Main">
       <p>
-        <button onClick={() => global.toggle()}>GLOBAL {global.theme}</button>
+        <button onClick={() => global.toggle()}>CONTEXT {global.theme}</button>
       </p>
       <p>
         <button onClick={() => toggle()}>{theme}</button>

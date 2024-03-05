@@ -5,8 +5,24 @@ export type User = {
   role: string;
 };
 
-export type Avatar = {
+export type AvatarType = {
   id: number;
   name: string;
   image: string;
+};
+
+export type AvatarItem = {
+  name: string;
+  items: AvatarType[];
+};
+
+export type ProfileType = {
+  id: number;
+  name: string;
+  avatar: AvatarType;
+};
+
+export type NewProfileType = {
+  avatarId: number;
+  name: string;
 };

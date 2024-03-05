@@ -50,3 +50,10 @@ Atividade em Grupo
 - Login com user -> ir para PROFILE
 
 - [plus]: usar @rehooks/local-storage
+
+04/03/2024
+
+- Dúvidas sobre useCallback ?
+- Entrar em /profile;
+- Buscar os profiles em `/api/profile`;
+- Buscar os avatares em `/api/avatar`;

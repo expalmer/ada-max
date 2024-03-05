@@ -1,4 +1,4 @@
-import { memo, useState } from "react";
+import { memo, useCallback, useState } from "react";
 
 const items = [
   {
@@ -126,10 +126,11 @@ type ListItemProps = {
 };
 
 const ListItem = memo(({ item, onClick, isSelected }: ListItemProps) => {
+  console.log(item.name);
   return (
     <li style={{ marginBottom: 8 }}>
       <button onClick={() => onClick(item.id)} className="btn btn--white">
-        ListItem {isSelected ? "selected" : ""}
+        {item.name} {isSelected ? "selected" : ""}
       </button>
     </li>
   );
@@ -140,25 +141,23 @@ type ListComponentProps = {
 };
 
 const ListComponent = ({ items }: ListComponentProps) => {
-  const [counter, setCounter] = useState(0);
+  const [count, setCount] = useState(0);
   const [selectedItem, setSelectedItem] = useState("");
 
   // Memoize the click handler to prevent re-renders of ListItem components
-  const handleItemClick = (id: string) => {
+  const handleClick = useCallback((id: string) => {
     setSelectedItem(id);
-  };
+  }, []);
 
   return (
     <div>
-      <button className="btn" onClick={() => setCounter(counter + 1)}>
-        {counter}
-      </button>
+      <button onClick={() => setCount(count + 1)}>{count}</button>
       <ul>
         {items.map((item) => (
           <ListItem
             key={item.id}
             item={item}
-            onClick={handleItemClick}
+            onClick={handleClick}
             isSelected={selectedItem === item.id}
           />
         ))}
