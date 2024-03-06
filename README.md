@@ -57,3 +57,9 @@ Atividade em Grupo
 - Entrar em /profile;
 - Buscar os profiles em `/api/profile`;
 - Buscar os avatares em `/api/avatar`;
+
+06/03/2024
+
+- Editar Profile em `/edit-profile/:id`
+- Deletar Profile em `/delete-profile/:id`
+- Usando lib de classes css `clsx`
