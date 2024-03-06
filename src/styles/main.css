@@ -108,6 +108,7 @@ body {
   color: rgb(255, 255, 255);
   cursor: pointer;
   position: relative;
+  text-decoration: none;
 }
 
 .btn:hover {

@@ -104,7 +104,11 @@ export const CreateProfile = () => {
         </div>
       </div>
       {isOpen ? (
-        <AvatarPicker avatars={avatars} onSelectAvatar={handleSelectAvatar} />
+        <AvatarPicker
+          avatars={avatars}
+          onSelectAvatar={handleSelectAvatar}
+          onClose={() => setIsOpen(false)}
+        />
       ) : null}
 
       {isLoading && <Loader />}

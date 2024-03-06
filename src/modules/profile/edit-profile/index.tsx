@@ -1,10 +1,5 @@
 import { AvatarItem, AvatarType } from "../../../types";
-import {
-  deleteProfile,
-  getAvatars,
-  getProfile,
-  putProfile,
-} from "../../../clients/api";
+import { getAvatars, getProfile, putProfile } from "../../../clients/api";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -19,6 +14,7 @@ import styles from "./index.module.css";
 export const EditProfile = () => {
   const [name, setName] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+
   const [avatars, setAvatars] = useState<AvatarItem[]>([]);
   const [selectedAvatar, setSelectedAvatar] = useState<AvatarType | null>(null);
   const navigate = useNavigate();
@@ -73,20 +69,6 @@ export const EditProfile = () => {
     setIsLoading(false);
   };
 
-  const handleDelete = async () => {
-    setIsLoading(true);
-    try {
-      const { data } = await deleteProfile(id);
-      console.log("data", data);
-      navigate("/profile");
-      return;
-    } catch (err) {
-      const error = err as AxiosError<{ message: string }>;
-      setError(error.response?.data?.message || "Something went wrong");
-    }
-    setIsLoading(false);
-  };
-
   const isDisabled = isLoading || !selectedAvatar || isLoading;
 
   return (
@@ -94,7 +76,7 @@ export const EditProfile = () => {
       <div className="container">
         <div className={styles.limiter}>
           <div className={styles.container}>
-            <h1 className="title">Create Profile</h1>
+            <h1 className="title">Edit Profile</h1>
             <div className="flex-center" onClick={() => setIsOpen(!isOpen)}>
               <Avatar
                 image={
@@ -123,7 +105,7 @@ export const EditProfile = () => {
               </button>
               <button
                 className="btn btn--full btn--primary"
-                onClick={handleDelete}
+                onClick={() => navigate(`/delete-profile/${id}`)}
               >
                 Delete Profile
               </button>
@@ -133,7 +115,11 @@ export const EditProfile = () => {
         </div>
       </div>
       {isOpen ? (
-        <AvatarPicker avatars={avatars} onSelectAvatar={handleSelectAvatar} />
+        <AvatarPicker
+          avatars={avatars}
+          onSelectAvatar={handleSelectAvatar}
+          onClose={() => setIsOpen(false)}
+        />
       ) : null}
 
       {isLoading && <Loader />}

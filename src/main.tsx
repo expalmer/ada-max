@@ -3,9 +3,9 @@ import "./styles/main.css";
 
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
-import { AvatarPicker } from "./modules/profile/components/avatar-picker";
 import { Backstage } from "./modules/backstage";
 import { CreateProfile } from "./modules/profile/create-profile";
+import { DeleteProfile } from "./modules/profile/delete-profile";
 import { EditProfile } from "./modules/profile/edit-profile";
 import { Home } from "./modules/home";
 import { Login } from "./modules/login";
@@ -49,6 +49,14 @@ const router = createBrowserRouter([
     element: (
       <ProtectedRoute role="user">
         <EditProfile />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/delete-profile/:id",
+    element: (
+      <ProtectedRoute role="user">
+        <DeleteProfile />
       </ProtectedRoute>
     ),
   },

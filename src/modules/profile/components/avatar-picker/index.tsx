@@ -1,33 +1,45 @@
 import { AvatarItem, AvatarType } from "../../../../types";
 
 import { Avatar } from "../../../../components/Avatar";
+import clsx from "clsx";
 import styles from "./index.module.css";
 
 type Props = {
   avatars: AvatarItem[];
   onSelectAvatar: (avatar: AvatarType) => void;
+  onClose: () => void;
 };
 
-export const AvatarPicker = ({ avatars, onSelectAvatar }: Props) => {
+export const AvatarPicker = ({ avatars, onSelectAvatar, onClose }: Props) => {
   return (
     <div className={styles.wrapper}>
       <div className="container">
-        <div className={styles.limiter}>
-          <div className={styles.container}>
-            <header className={styles.header}>
-              <button className="btn btn--primary">Back</button>
-              <h1 className="title">Choose an Avatar</h1>
-              <button className="btn btn--primary">Skip</button>
-            </header>
-
+        <button
+          className={clsx("btn btn--primary", styles.close)}
+          onClick={onClose}
+        >
+          Back
+        </button>
+        <div className="section">
+          <h1 className="title">Choose an Avatar</h1>
+        </div>
+        <div className={styles.container}>
+          <div className={styles.scroll}>
             {avatars.map((avatar) => {
               return (
                 <div className={styles.box} key={avatar.name}>
                   <h4 id={avatar.name}>{avatar.name}</h4>
                   <div className={styles.box__items}>
                     {avatar.items.map((item) => (
-                      <span onClick={() => onSelectAvatar(item)} key={item.id}>
-                        <Avatar image={`/images/${item.image}.webp`} />
+                      <span
+                        onClick={() => onSelectAvatar(item)}
+                        key={item.id}
+                        className={styles.box__items__item}
+                      >
+                        <Avatar
+                          image={`/images/${item.image}.webp`}
+                          size="large"
+                        />
                       </span>
                     ))}
                   </div>
