@@ -306,6 +306,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
   gap: 24px;
   padding: 64px 0;
 }

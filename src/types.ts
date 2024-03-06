@@ -22,7 +22,7 @@ export type ProfileType = {
   avatar: AvatarType;
 };
 
-export type NewProfileType = {
+export type ProfileBodyType = {
   avatarId: number;
   name: string;
 };

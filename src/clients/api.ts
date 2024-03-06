@@ -1,4 +1,4 @@
-import { AvatarItem, NewProfileType, ProfileType } from "../types";
+import { AvatarItem, ProfileBodyType, ProfileType } from "../types";
 
 import axios from "axios";
 
@@ -29,6 +29,18 @@ export const getProfiles = () => {
   return api.get<ProfileType[]>("/api/profile");
 };
 
-export const postProfile = (body: NewProfileType) => {
+export const getProfile = (id: number) => {
+  return api.get<ProfileType>(`/api/profile/${id}`);
+};
+
+export const postProfile = (body: ProfileBodyType) => {
   return api.post<ProfileType[]>("/api/profile", body);
+};
+
+export const putProfile = (id: number, body: ProfileBodyType) => {
+  return api.put<ProfileType[]>(`/api/profile/${id}`, body);
+};
+
+export const deleteProfile = (id: number) => {
+  return api.delete(`/api/profile/${id}`);
 };
