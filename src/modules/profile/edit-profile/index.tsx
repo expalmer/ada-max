@@ -13,16 +13,17 @@ import styles from "./index.module.css";
 
 export const EditProfile = () => {
   const [name, setName] = useState("");
-  const [isOpen, setIsOpen] = useState(false);
-
-  const [avatars, setAvatars] = useState<AvatarItem[]>([]);
   const [selectedAvatar, setSelectedAvatar] = useState<AvatarType | null>(null);
-  const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(false);
+  const [avatars, setAvatars] = useState<AvatarItem[]>([]);
+
   const params = useParams<{ id: string }>();
   const id = Number(params.id);
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+
+  const navigate = useNavigate();
 
   const handleSelectAvatar = (avatar: AvatarType) => {
     setIsOpen(false);
@@ -37,6 +38,7 @@ export const EditProfile = () => {
         const { data: dataProfile } = await getProfile(id);
 
         setAvatars(dataAvatar);
+
         setName(dataProfile.name);
         setSelectedAvatar(dataProfile.avatar);
 

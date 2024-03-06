@@ -1,22 +1,24 @@
+import { AxiosError, isAxiosError } from "axios";
 import { deleteProfile, getProfile } from "../../../clients/api";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { Alert } from "../../../components/Alert";
 import { Avatar } from "../../../components/Avatar";
-import { AxiosError } from "axios";
 import { Loader } from "../../../components/Loader";
 import { ProfileType } from "../../../types";
 import styles from "./index.module.css";
 
 export const DeleteProfile = () => {
   const [profile, setProfile] = useState<ProfileType | null>(null);
-  const navigate = useNavigate();
+
   const params = useParams<{ id: string }>();
   const id = Number(params.id);
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     setIsLoading(true);
@@ -24,11 +26,18 @@ export const DeleteProfile = () => {
       try {
         const { data } = await getProfile(id);
         setProfile(data);
-        setIsLoading(false);
       } catch (err) {
-        const error = err as AxiosError<{ message: string }>;
-        setError(error.response?.data?.message || "Something went wrong");
+        if (isAxiosError<{ message: string }>(err)) {
+          const message =
+            err.response?.status === 404
+              ? "OPS Não achei esse profile"
+              : "OPS, tente novamente";
+
+          setError(message);
+        }
       }
+
+      setIsLoading(false);
     }
     getData();
   }, [id]);
@@ -37,7 +46,9 @@ export const DeleteProfile = () => {
     if (!profile) {
       return;
     }
+
     setIsLoading(true);
+
     try {
       const { data } = await deleteProfile(id);
       console.log("data", data);
@@ -49,6 +60,17 @@ export const DeleteProfile = () => {
     }
     setIsLoading(false);
   };
+
+  if (error) {
+    return (
+      <Alert>
+        {error} clica aqui pra voltar{" "}
+        <button onClick={() => navigate("/profile")}>
+          Voltar para o perfil
+        </button>
+      </Alert>
+    );
+  }
 
   return (
     <>
@@ -86,7 +108,6 @@ export const DeleteProfile = () => {
             Cancel
           </button>
         </div>
-        {error && <Alert>{error}</Alert>}
       </div>
 
       {isLoading && <Loader />}

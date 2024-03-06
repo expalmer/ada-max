@@ -5,20 +5,24 @@ import { useEffect, useState } from "react";
 import { Alert } from "../../../components/Alert";
 import { Avatar } from "../../../components/Avatar";
 import { AvatarPicker } from "../components/avatar-picker";
-import { AxiosError } from "axios";
 import { Input } from "../../../components/Input";
 import { Loader } from "../../../components/Loader";
+import { isAxiosError } from "axios";
 import styles from "./index.module.css";
 import { useNavigate } from "react-router-dom";
 
 export const CreateProfile = () => {
-  const [name, setName] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+
   const [avatars, setAvatars] = useState<AvatarItem[]>([]);
+
+  const [name, setName] = useState("");
   const [selectedAvatar, setSelectedAvatar] = useState<AvatarType | null>(null);
-  const navigate = useNavigate();
+
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+
+  const navigate = useNavigate();
 
   const handleSelectAvatar = (avatar: AvatarType) => {
     setIsOpen(false);
@@ -50,13 +54,16 @@ export const CreateProfile = () => {
       navigate("/profile");
       return;
     } catch (err) {
-      const error = err as AxiosError<{ message: string }>;
-      setError(error.response?.data?.message || "Something went wrong");
+      const error = isAxiosError<{ message: string }>(err)
+        ? err.response?.data?.message || ""
+        : (err as Error)?.message || "";
+
+      setError(error);
     }
     setIsLoading(false);
   };
 
-  const isDisabled = isLoading || !selectedAvatar || isLoading;
+  const isDisabled = isLoading || !selectedAvatar || !name;
 
   return (
     <>
