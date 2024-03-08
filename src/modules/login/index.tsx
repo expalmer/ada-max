@@ -1,50 +1,24 @@
-import { IconEyeClosed, IconEyeOpened } from "../../components/Icons";
-import { Link, useNavigate } from "react-router-dom";
+import {
+  Alert,
+  Button,
+  IconEyeClosed,
+  IconEyeOpened,
+  Input,
+} from "../../components";
 
-import { Alert } from "../../components/Alert";
-import { AxiosError } from "axios";
-import { Input } from "./components/input";
-import { Submit } from "./components/submit/submit";
-import { apiPostSignIn } from "../../clients/api";
-import { useState } from "react";
+import { Link } from "react-router-dom";
+import { useLogin } from "./hooks/use-login";
 
 export const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-
-  const isEmailValid = email.includes("@") && email.includes(".");
-  const isPasswordValid = password.length > 3;
-
-  const navigate = useNavigate();
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitted(true);
-
-    if (!isEmailValid || !isPasswordValid) {
-      console.log("Invalid form");
-      return;
-    }
-
-    setIsLoading(true);
-
-    try {
-      setIsLoading(true);
-      const { data } = await apiPostSignIn(email, password);
-      localStorage.setItem("token", data.token);
-      setError("");
-      navigate("/profile");
-    } catch (err) {
-      const error = err as AxiosError<{ message: string }>;
-      setError(error.response?.data?.message || "Something went wrong");
-    }
-
-    setIsLoading(false);
-  };
+  const {
+    handleSubmit,
+    register,
+    errors,
+    isPending,
+    isError,
+    showPassword,
+    togglePassword,
+  } = useLogin();
 
   return (
     <div className="container">
@@ -52,9 +26,8 @@ export const Login = () => {
         <Link to="/login" className="logo">
           <img src="/max.webp" alt="Ada Max" />
         </Link>
-        <Link to="/signUp" className="btn relative z-index-1">
-          Sign Up Now
-        </Link>
+
+        <Button variant="subtle">Sign Up Now</Button>
       </div>
       <div className="content">
         <h1 className="title">Get Started</h1>
@@ -64,43 +37,37 @@ export const Login = () => {
             Enter your Max or HBO Max account email address and password.
           </p>
           <form onSubmit={handleSubmit}>
-            {error && <Alert>{error}</Alert>}
-            {/* esse eu criei um componente*/}
             <Input
               label="Email Address"
               placeholder="email@email.com"
-              value={email}
-              onChange={(e) => setEmail(e.currentTarget.value)}
-              disabled={isLoading}
-              error={isSubmitted && !isEmailValid ? "E-mail inválido" : ""}
+              disabled={isPending}
+              error={errors?.email?.message}
+              {...register("email")}
             />
 
             <div className="form-group">
               <label htmlFor="">Password</label>
+              {/* TODO: criem um componente suportando o ícone */}
               <div className="input-with-icon">
                 <input
                   type={showPassword ? "text" : "password"}
-                  value={password}
-                  onChange={(e) => {
-                    setPassword(e.target.value);
-                  }}
-                  disabled={isLoading}
+                  disabled={isPending}
+                  {...register("password")}
                 />
-                <button
-                  className="eye"
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                >
+                <button className="eye" type="button" onClick={togglePassword}>
                   {showPassword ? <IconEyeClosed /> : <IconEyeOpened />}
                 </button>
               </div>
-              {isSubmitted && !isPasswordValid && <span>Senha inválida</span>}
+              {errors?.password?.message && (
+                <span>{errors?.password?.message}</span>
+              )}
             </div>
             <div>
-              <Submit isDisabled={isLoading} isLoading={isLoading}>
+              <Button type="submit" isLoading={isPending}>
                 Sign In
-              </Submit>
+              </Button>
             </div>
+            {isError && <Alert>Credencias inválidas</Alert>}
           </form>
         </div>
       </div>

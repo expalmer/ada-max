@@ -63,3 +63,27 @@ Atividade em Grupo
 - Editar Profile em `/edit-profile/:id`
 - Deletar Profile em `/delete-profile/:id`
 - Usando lib de classes css `clsx`
+
+08/03/2024
+
+Aqui temos uma refatoração usando algumas libs.
+
+- [React Query](https://tanstack.com/query/v3/docs/framework/react/overview) `data-fetching library`: para lidar com requisições de dados e cache;
+- [React Hook Form](https://react-hook-form.com/) `Performant, flexible and extensible forms with easy-to-use validation`: para lidar com forms;
+- [Zod](https://zod.dev/) `TypeScript-first schema validation with static type inference`: para criação de schemas de validação de dados;
+- [React i18next](https://react.i18next.com/guides/quick-start) Internacionalização
+
+```bash
+npm i @tanstack/react-query
+npm i react-hook-form @hookform/resolvers
+npm i zod
+npm i styled-components
+npm i --save-dev babel-plugin-styled-components
+
+npm install react-i18next i18next --save
+```
+
+Pra não esquecer:
+
+- A meta de vocês é matar o css global `main.css` criando todo componente com seu escopo;
+- Criar um provider para trocar a lang, ou pegar do navegador, ou no setting do usuário

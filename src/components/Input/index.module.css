@@ -23,7 +23,6 @@
   color: #fff;
   font-size: 16px;
   font-family: inherit;
-  outline: none;
 }
 
 .input:disabled {
@@ -36,7 +35,7 @@
   background-color: #000;
   border-color: #4f8bff;
   outline: 0;
-  border-width: 1px;
+  border-width: 3px;
 }
 
 .error {

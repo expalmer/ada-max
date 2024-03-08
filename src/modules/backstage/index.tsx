@@ -1,7 +1,7 @@
-import { useLogout } from "../../hooks/use-logout";
+import { useAuth } from "../../providers/AuthProvider";
 
 export const Backstage = () => {
-  const logout = useLogout();
+  const { logout } = useAuth();
 
   return (
     <div className="container">

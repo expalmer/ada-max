@@ -1,5 +1,5 @@
 import { AxiosError, isAxiosError } from "axios";
-import { deleteProfile, getProfile } from "../../../clients/api";
+import { deleteProfile, getProfile } from "../../../services";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -76,12 +76,7 @@ export const DeleteProfile = () => {
     <>
       <div className="container">
         <div className={styles.header}>
-          <Avatar
-            image={
-              profile ? `/images/${profile?.avatar.image}.webp` : undefined
-            }
-            disabled
-          />
+          <Avatar image={profile?.avatar.image} disabled />
 
           <h4>{profile?.name}</h4>
         </div>

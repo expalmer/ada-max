@@ -1,16 +1,20 @@
-import { AvatarItem, AvatarType } from "../../../../types";
-
 import { Avatar } from "../../../../components/Avatar";
+import { AvatarType } from "../../../../types";
 import clsx from "clsx";
 import styles from "./index.module.css";
+import { useGetAvatars } from "../../hooks/use-get-avatars";
 
 type Props = {
-  avatars: AvatarItem[];
   onSelectAvatar: (avatar: AvatarType) => void;
   onClose: () => void;
 };
 
-export const AvatarPicker = ({ avatars, onSelectAvatar, onClose }: Props) => {
+export const AvatarPicker = ({ onSelectAvatar, onClose }: Props) => {
+  const { data, isLoading } = useGetAvatars();
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
   return (
     <div className={styles.wrapper}>
       <div className="container">
@@ -25,7 +29,7 @@ export const AvatarPicker = ({ avatars, onSelectAvatar, onClose }: Props) => {
         </div>
         <div className={styles.container}>
           <div className={styles.scroll}>
-            {avatars.map((avatar) => {
+            {data?.map((avatar) => {
               return (
                 <div className={styles.box} key={avatar.name}>
                   <h4 id={avatar.name}>{avatar.name}</h4>
@@ -36,10 +40,7 @@ export const AvatarPicker = ({ avatars, onSelectAvatar, onClose }: Props) => {
                         key={item.id}
                         className={styles.box__items__item}
                       >
-                        <Avatar
-                          image={`/images/${item.image}.webp`}
-                          size="large"
-                        />
+                        <Avatar image={item.image} size="large" />
                       </span>
                     ))}
                   </div>

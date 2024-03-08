@@ -16,6 +16,7 @@ export const Avatar = ({
   size = "medium",
   disabled,
 }: AvatarProps) => {
+  const imagePath = image ? `/images/${image}.webp` : user;
   return (
     <div
       className={clsx(styles.container, {
@@ -23,7 +24,7 @@ export const Avatar = ({
         [styles.disabled]: disabled,
       })}
     >
-      <img src={image || user} alt="" />
+      <img src={imagePath} alt="" />
       {isEdit && (
         <div className={styles.icon}>
           <IconEdit />
