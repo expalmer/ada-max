@@ -9,6 +9,7 @@ import { Backstage } from "./modules/backstage";
 import { CreateProfile } from "./modules/profile/create-profile";
 import { DeleteProfile } from "./modules/profile/delete-profile";
 import { EditProfile } from "./modules/profile/edit-profile";
+import { ExampleStyled } from "./examples/example-context/example-styled";
 import { Home } from "./modules/home";
 import { Login } from "./modules/login";
 import { Profile } from "./modules/profile/profile";
@@ -16,6 +17,7 @@ import { ProtectedRoute } from "./components/ProtectedRoute";
 import { ROUTES } from "./constants";
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { setupI18n } from "./lang/setup";
 
 const queryClient = new QueryClient();
@@ -25,9 +27,11 @@ setupI18n();
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools />
       <BrowserRouter>
         <AuthProvider>
           <Routes>
+            <Route path="/example" element={<ExampleStyled />} />
             <Route path="/" element={<Home />} />
             <Route path={ROUTES.LOGIN} element={<Login />} />
             <Route

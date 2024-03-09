@@ -8,8 +8,10 @@ import {
 
 import { Link } from "react-router-dom";
 import { useLogin } from "./hooks/use-login";
+import { useTranslation } from "react-i18next";
 
 export const Login = () => {
+  const { t } = useTranslation();
   const {
     handleSubmit,
     register,
@@ -33,9 +35,7 @@ export const Login = () => {
         <h1 className="title">Get Started</h1>
         <div className="login">
           <h2 className="title">Sign In</h2>
-          <p className="text-center">
-            Enter your Max or HBO Max account email address and password.
-          </p>
+          <p className="text-center">{t("login.description")}</p>
           <form onSubmit={handleSubmit}>
             <Input
               label="Email Address"
@@ -64,7 +64,7 @@ export const Login = () => {
             </div>
             <div>
               <Button type="submit" isLoading={isPending}>
-                Sign In
+                {t("login.signIn")}
               </Button>
             </div>
             {isError && <Alert>Credencias inválidas</Alert>}

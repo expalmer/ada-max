@@ -22,6 +22,9 @@ export const useLogin = () => {
     onSuccess: ({ data }) => {
       login(data.token);
     },
+    onError: (err) => {
+      console.log("ERROR", err);
+    },
   });
 
   const onSubmit = (data: LoginType) => {

@@ -79,8 +79,7 @@ npm i react-hook-form @hookform/resolvers
 npm i zod
 npm i styled-components
 npm i --save-dev babel-plugin-styled-components
-
-npm install react-i18next i18next --save
+npm i react-i18next i18next
 ```
 
 Pra não esquecer:

@@ -6,11 +6,13 @@ import { decodeJwt } from "jose";
 import { useLocalStorage } from "@rehooks/local-storage";
 import { useNavigate } from "react-router-dom";
 
-const AuthContext = createContext<{
+type AuthContextType = {
   user: User | null;
   login: (token: string) => void;
   logout: () => void;
-}>({
+};
+
+const AuthContext = createContext<AuthContextType>({
   user: null,
   login: () => {},
   logout: () => {},
@@ -18,6 +20,7 @@ const AuthContext = createContext<{
 
 const useAuthBase = () => {
   const [token, setToken] = useLocalStorage<string | null>("token", null);
+
   const navigate = useNavigate();
 
   const login = useCallback(

@@ -6,7 +6,7 @@ export const LoginSchema = z.object({
     .email({ message: "E-mail inválido" }),
   password: z
     .string({ required_error: "Informe a senha" })
-    .min(1, { message: "Senha inválida" }),
+    .min(3, { message: "Senha inválida" }),
 });
 
 export type LoginType = z.infer<typeof LoginSchema>;
