@@ -17,7 +17,6 @@ import { ProtectedRoute } from "./components/ProtectedRoute";
 import { ROUTES } from "./constants";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { setupI18n } from "./lang/setup";
 
 const queryClient = new QueryClient();
@@ -27,7 +26,6 @@ setupI18n();
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools />
       <BrowserRouter>
         <AuthProvider>
           <Routes>
