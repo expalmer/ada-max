@@ -43,3 +43,5 @@
 ### Entrega
 
 Cada grupo deve subir o projeto na nuvem (ex: vercel.com) e enviar para meu e-mail `expalmer@gmail.com` o link do github do projeto até dia 17/03/2024 as 23:59h.
+
+Informe no README.md o nome dos integrantes e seus respectivos e-mails;
