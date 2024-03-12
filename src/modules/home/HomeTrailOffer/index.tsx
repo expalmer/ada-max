@@ -22,8 +22,7 @@ export const HomeTrailOffer = ({ trailOffer }: Props) => {
     threshold: 1,
   });
 
-  const { data, isLoading } = useGetOffer(offerId, startLoading);
-  console.log({ data, isLoading });
+  const { data } = useGetOffer(offerId, startLoading);
 
   useEffect(() => {
     if (inView) {
