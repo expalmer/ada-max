@@ -1,12 +1,8 @@
-# Ada Max - TRABALHO FINAL
+# TRABALHO FINAL - Sistema mini Max.com (antiga hbomax.com)
 
-## Sistema mini Max.com (antiga hbomax.com)
+## Funcionalidades
 
-Vamos fazer um sistema igual ao apresentado em aula;
-
-### Funcionalidades
-
-#### Login
+### Login
 
 [] Tela de login com `email` e `password`;
 [] Fazer validação dos campos;
@@ -15,7 +11,7 @@ Vamos fazer um sistema igual ao apresentado em aula;
 [] Quando BackEnd retornar 200: Redirecionar para tela conforme o role do usuário;
 Se for `user` para tela `Profile` se `admin` para Backstage;
 
-#### Logout
+### Logout
 
 [] Criar algum ponto no sistema para fazer logout, limpando o token e redirecionando para o login;
 
@@ -25,6 +21,7 @@ Se for `user` para tela `Profile` se `admin` para Backstage;
 [] Criar um novo profile;
 [] Alterar um profile;
 [] Remover um profile;
+[] Apos selecionado um profile, redirecionar para `/home`;
 
 ### Home
 
@@ -33,7 +30,7 @@ Se for `user` para tela `Profile` se `admin` para Backstage;
 [] Mostrar os trilhos de ofertas. Pegando em GET `/api/trail-offers`;
 [] No momento que o elmento da oferta entrar no viewport, chamamos o GET `/api/trail-offer/:id` então mostramos data um dos thumbs das ofertas;
 
-## Funcionalidades gerais
+### Funcionalidades gerais
 
 [] Use Internacionalização para os textos;
 [] Use os hooks, especialmente criando custom hooks;
@@ -46,7 +43,3 @@ Se for `user` para tela `Profile` se `admin` para Backstage;
 ### Entrega
 
 Cada grupo deve subir o projeto na nuvem (ex: vercel.com) e enviar para meu e-mail `expalmer@gmail.com` o link do github do projeto até dia 17/03/2024 as 23:59h;
-
-Observações:
-
-- Use qualquer umas das bibliotecas que vimos em aula ou outras similares;
