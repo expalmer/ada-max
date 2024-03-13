@@ -1,6 +1,7 @@
 import * as S from "./styles";
 
 import { HomeBanner } from "./HomeBanner";
+import { HomeMenu } from "./HomeMenu";
 import { HomeTrailOffer } from "./HomeTrailOffer";
 import { Link } from "react-router-dom";
 import clsx from "clsx";
@@ -13,8 +14,6 @@ export const Home = () => {
   const { data: trailOffers } = useGetTrailOffers();
   const [index, setIndex] = useState(0);
   const banner = banners?.[index] || null;
-
-  console.log({ trailOffers });
 
   return (
     <>
@@ -33,11 +32,7 @@ export const Home = () => {
             </S.MenuItem>
             <S.MenuItem>Kids & Family</S.MenuItem>
           </S.Menu>
-          <span>
-            <S.Avatar>
-              <S.AvatarImg src="/images/ellie.webp" />
-            </S.Avatar>
-          </span>
+          <HomeMenu />
         </S.Header>
 
         <S.Banner>

@@ -1,4 +1,4 @@
-import { getProfiles } from "../../../../services";
+import { getProfiles } from "../../services";
 import { useQuery } from "@tanstack/react-query";
 
 const CACHE_KEY = "profiles";
